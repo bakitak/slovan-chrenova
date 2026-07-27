@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TJ Slovan Nitra - Chrenová | Rozpis zápasov 2026/2027</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004D98;
+            --primary-dark: #003366;
+            --primary-light: #e8f0fe;
+            --accent: #E30613;
+            --accent-hover: #c40410;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --home-badge: #dcfce7;
+            --home-text: #166534;
+            --away-badge: #fef3c7;
+            --away-text: #92400e;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 30px 20px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-title-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-img {
+            height: 90px;
+            width: auto;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .header-titles h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .header-titles p {
+            color: #cbd5e1;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-google {
+            background-color: #ffffff;
+            color: #3c4043;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-google:hover {
+            background-color: #f1f5f9;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-apple {
+            background-color: #000000;
+            color: #ffffff;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-apple:hover {
+            background-color: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-ics {
+            background-color: var(--accent);
+            color: #ffffff;
+        }
+
+        .btn-ics:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .main-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .controls-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background-color: #fff;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary-light);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 240px;
+            flex-grow: 1;
+            max-width: 350px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 9px 16px 9px 38px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            outline: none;
+            font-size: 0.9rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            fill: var(--text-muted);
+        }
+
+        .import-banner {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .import-banner-text h3 {
+            font-size: 1rem;
+            color: #1e40af;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .import-banner-text p {
+            font-size: 0.875rem;
+            color: #1e3a8a;
+        }
+
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .match-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            padding: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .match-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .match-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 5px;
+            background-color: var(--primary);
+        }
+
+        .match-card.is-home::before {
+            background-color: #16a34a;
+        }
+
+        .match-card.is-away::before {
+            background-color: #d97706;
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .match-comp {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary);
+        }
+
+        .match-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .badge-home {
+            background-color: var(--home-badge);
+            color: var(--home-text);
+        }
+
+        .badge-away {
+            background-color: var(--away-badge);
+            color: var(--away-text);
+        }
+
+        .match-date-time {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .match-date-time svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .match-teams {
+            margin-bottom: 20px;
+        }
+
+        .team-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+            font-weight: 600;
+            padding: 6px 0;
+            color: var(--text-main);
+        }
+
+        .team-row.highlight {
+            color: var(--primary-dark);
+            font-weight: 800;
+        }
+
+        .team-vs {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin: 2px 0;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .match-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn-add-cal {
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-add-cal:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            background: white;
+            border-radius: var(--radius);
+            grid-column: 1 / -1;
+            color: var(--text-muted);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--radius);
+            max-width: 500px;
+            width: 90%;
+            padding: 25px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .modal-body p {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .modal-body ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .modal-body li {
+            margin-bottom: 6px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; align-items: flex-start; }
+            .header-actions { width: 100%; justify-content: flex-start; }
+            .controls-card { flex-direction: column; align-items: stretch; }
+            .search-box { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-title-group">
+                <img src="https://www.slovanchrenova.sk/data/page/slovanchrenova.sk/27150/logo-slovan-nitra-chrenova.svg" alt="TJ Slovan Nitra - Chrenová" class="logo-img">
+                <div class="header-titles">
+                    <h1>TJ Slovan Nitra - Chrenová</h1>
+                    <p>Kalendár a rozpis zápasov 2026/2027</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button onclick="exportAllICS()" class="btn btn-ics">
+                    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    Stiahnuť .ICS kalendár
+                </button>
+                <button onclick="openCalendarModal('google')" class="btn btn-google">
+                    <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/></svg>
+                    Google Kalendár
+                </button>
+                <button onclick="openCalendarModal('apple')" class="btn btn-apple">
+                    <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.27c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.65 1.37-.58.68-1.08 1.76-.94 2.8 1.01.08 2.05-.57 2.67-1.32z"/></svg>
+                    Apple Kalendár
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="import-banner">
+            <div class="import-banner-text">
+                <h3>🗓️ Synchronizujte si zápasy TJ Slovan Nitra - Chrenová</h3>
+                <p>Nezmeškajte ani jeden zápas! Kliknutím na tlačidlá vyššie si môžete stiahnuť celý rozpis zápasov priamo do vášho kalendára v telefóne alebo počítači.</p>
+            </div>
+        </div>
+
+        <div class="controls-card">
+            <div class="filter-group">
+                <button class="filter-btn active" onclick="setFilter('all', this)">Všetky zápasy</button>
+                <button class="filter-btn" onclick="setFilter('home', this)">Domáce zápasy</button>
+                <button class="filter-btn" onclick="setFilter('away', this)">Zápasy vonku</button>
+                <button class="filter-btn" onclick="setFilter('cup', this)">Slovnaft Cup</button>
+            </div>
+            <div class="search-box">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                <input type="text" id="searchInput" placeholder="Hľadať súpera..." oninput="renderMatches()">
+            </div>
+        </div>
+
+        <div id="matchesGrid" class="matches-grid"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 TJ Slovan Nitra - Chrenová. Oficiálny fanúšikovský rozpis zápasov.</p>
+    </footer>
+
+    <div id="calendarModal" class="modal-overlay">
+        <div class="modal">
+            <button class="modal-close" onclick="closeCalendarModal()">&times;</button>
+            <h3 class="modal-title" id="modalTitle">Import do kalendára</h3>
+            <div class="modal-body" id="modalBody"></div>
+            <button class="btn btn-ics" style="width:100%; justify-content:center; margin-top:10px;" onclick="exportAllICS()">
+                Stiahnuť .ICS súbor zápasov
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const matchesData = [
+  {"id": 1, "competition": "Slovnaft Cup - 1. kolo", "date": "2026-08-01", "start_time": "17:00:00", "end_time": "19:00:00", "teams": "TJ Slovan Nitra-Chrenová - ŠK Veľké Zálužie", "home": "TJ Slovan Nitra-Chrenová", "away": "ŠK Veľké Zálužie", "is_home": true},
+  {"id": 2, "competition": "VI. liga Stred - 1. kolo", "date": "2026-08-09", "start_time": "17:00:00", "end_time": "19:00:00", "teams": "ŠK Nitra-Dolné Krškany - TJ Slovan Nitra-Chrenová", "home": "ŠK Nitra-Dolné Krškany", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 3, "competition": "VI. liga Stred - 2. kolo", "date": "2026-08-15", "start_time": "17:00:00", "end_time": "19:00:00", "teams": "TJ Slovan Nitra-Chrenová - Združenie FC Výčapy - Opatovce", "home": "TJ Slovan Nitra-Chrenová", "away": "Združenie FC Výčapy - Opatovce", "is_home": true},
+  {"id": 4, "competition": "VI. liga Stred - 3. kolo", "date": "2026-08-23", "start_time": "17:00:00", "end_time": "19:00:00", "teams": "TJ Štart Nitrianske Hrnčiarovce - TJ Slovan Nitra-Chrenová", "home": "TJ Štart Nitrianske Hrnčiarovce", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 5, "competition": "VI. liga Stred - 4. kolo", "date": "2026-08-29", "start_time": "17:00:00", "end_time": "19:00:00", "teams": "TJ Slovan Nitra-Chrenová - FC ViOn Zlaté Moravce - Vráble C", "home": "TJ Slovan Nitra-Chrenová", "away": "FC ViOn Zlaté Moravce - Vráble C", "is_home": true},
+  {"id": 6, "competition": "VI. liga Stred - 5. kolo", "date": "2026-09-06", "start_time": "16:00:00", "end_time": "18:00:00", "teams": "ŠK Žitavany - TJ Slovan Nitra-Chrenová", "home": "ŠK Žitavany", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 7, "competition": "VI. liga Stred - 6. kolo", "date": "2026-09-12", "start_time": "16:00:00", "end_time": "18:00:00", "teams": "FK Veľký Cetín - TJ Slovan Nitra-Chrenová", "home": "FK Veľký Cetín", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 8, "competition": "VI. liga Stred - 7. kolo", "date": "2026-09-20", "start_time": "15:00:00", "end_time": "17:00:00", "teams": "ŠK Veľké Zálužie - TJ Slovan Nitra-Chrenová", "home": "ŠK Veľké Zálužie", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 9, "competition": "VI. liga Stred - 8. kolo", "date": "2026-09-27", "start_time": "15:00:00", "end_time": "17:00:00", "teams": "ŠK Nevidzany - TJ Slovan Nitra-Chrenová", "home": "ŠK Nevidzany", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 10, "competition": "VI. liga Stred - 9. kolo", "date": "2026-10-03", "start_time": "14:30:00", "end_time": "16:30:00", "teams": "TJ Slovan Nitra-Chrenová - TJ Slovan Čeľadice", "home": "TJ Slovan Nitra-Chrenová", "away": "TJ Slovan Čeľadice", "is_home": true},
+  {"id": 11, "competition": "VI. liga Stred - 10. kolo", "date": "2026-10-11", "start_time": "14:30:00", "end_time": "16:30:00", "teams": "TJ Slovan Zbehy - TJ Slovan Nitra-Chrenová", "home": "TJ Slovan Zbehy", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 12, "competition": "VI. liga Stred - 11. kolo", "date": "2026-10-17", "start_time": "14:00:00", "end_time": "16:00:00", "teams": "TJ Slovan Nitra-Chrenová - TJ Družstevník Rišňovce", "home": "TJ Slovan Nitra-Chrenová", "away": "TJ Družstevník Rišňovce", "is_home": true},
+  {"id": 13, "competition": "VI. liga Stred - 12. kolo", "date": "2026-10-25", "start_time": "14:00:00", "end_time": "16:00:00", "teams": "FC MOSAP Klasov - TJ Slovan Nitra-Chrenová", "home": "FC MOSAP Klasov", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 14, "competition": "VI. liga Stred - 13. kolo", "date": "2026-10-31", "start_time": "13:30:00", "end_time": "15:30:00", "teams": "TJ Slovan Nitra-Chrenová - Obecný športový klub Kolíňany", "home": "TJ Slovan Nitra-Chrenová", "away": "Obecný športový klub Kolíňany", "is_home": true},
+  {"id": 15, "competition": "VI. liga Stred - 14. kolo", "date": "2027-03-20", "start_time": "15:00:00", "end_time": "17:00:00", "teams": "TJ Slovan Nitra-Chrenová - ŠK Nitra-Dolné Krškany", "home": "TJ Slovan Nitra-Chrenová", "away": "ŠK Nitra-Dolné Krškany", "is_home": true},
+  {"id": 16, "competition": "VI. liga Stred - 15. kolo", "date": "2027-03-28", "start_time": "15:00:00", "end_time": "17:00:00", "teams": "Združenie FC Výčapy - Opatovce - TJ Slovan Nitra-Chrenová", "home": "Združenie FC Výčapy - Opatovce", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 17, "competition": "VI. liga Stred - 16. kolo", "date": "2027-04-03", "start_time": "15:30:00", "end_time": "17:30:00", "teams": "TJ Slovan Nitra-Chrenová - TJ Štart Nitrianske Hrnčiarovce", "home": "TJ Slovan Nitra-Chrenová", "away": "TJ Štart Nitrianske Hrnčiarovce", "is_home": true},
+  {"id": 18, "competition": "VI. liga Stred - 17. kolo", "date": "2027-04-11", "start_time": "15:30:00", "end_time": "17:30:00", "teams": "FC ViOn Zlaté Moravce - Vráble C - TJ Slovan Nitra-Chrenová", "home": "FC ViOn Zlaté Moravce - Vráble C", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 19, "competition": "VI. liga Stred - 18. kolo", "date": "2027-04-17", "start_time": "16:00:00", "end_time": "18:00:00", "teams": "TJ Slovan Nitra-Chrenová - ŠK Žitavany", "home": "TJ Slovan Nitra-Chrenová", "away": "ŠK Žitavany", "is_home": true},
+  {"id": 20, "competition": "VI. liga Stred - 19. kolo", "date": "2027-04-25", "start_time": "16:00:00", "end_time": "18:00:00", "teams": "TJ Slovan Nitra-Chrenová - FK Veľký Cetín", "home": "TJ Slovan Nitra-Chrenová", "away": "FK Veľký Cetín", "is_home": true},
+  {"id": 21, "competition": "VI. liga Stred - 20. kolo", "date": "2027-05-01", "start_time": "16:30:00", "end_time": "18:30:00", "teams": "TJ Slovan Nitra-Chrenová - ŠK Veľké Zálužie", "home": "TJ Slovan Nitra-Chrenová", "away": "ŠK Veľké Zálužie", "is_home": true},
+  {"id": 22, "competition": "VI. liga Stred - 21. kolo", "date": "2027-05-08", "start_time": "16:30:00", "end_time": "18:30:00", "teams": "TJ Slovan Nitra-Chrenová - ŠK Nevidzany", "home": "TJ Slovan Nitra-Chrenová", "away": "ŠK Nevidzany", "is_home": true},
+  {"id": 23, "competition": "VI. liga Stred - 22. kolo", "date": "2027-05-16", "start_time": "17:00:00", "end_time": "19:00:00", "teams": "TJ Slovan Čeľadice - TJ Slovan Nitra-Chrenová", "home": "TJ Slovan Čeľadice", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 24, "competition": "VI. liga Stred - 23. kolo", "date": "2027-05-22", "start_time": "17:00:00", "end_time": "19:00:00", "teams": "TJ Slovan Nitra-Chrenová - TJ Slovan Zbehy", "home": "TJ Slovan Nitra-Chrenová", "away": "TJ Slovan Zbehy", "is_home": true},
+  {"id": 25, "competition": "VI. liga Stred - 24. kolo", "date": "2027-05-30", "start_time": "17:00:00", "end_time": "19:00:00", "teams": "TJ Družstevník Rišňovce - TJ Slovan Nitra-Chrenová", "home": "TJ Družstevník Rišňovce", "away": "TJ Slovan Nitra-Chrenová", "is_home": false},
+  {"id": 26, "competition": "VI. liga Stred - 25. kolo", "date": "2027-06-06", "start_time": "17:00:00", "end_time": "19:00:00", "teams": "TJ Slovan Nitra-Chrenová - FC MOSAP Klasov", "home": "TJ Slovan Nitra-Chrenová", "away": "FC MOSAP Klasov", "is_home": true},
+  {"id": 27, "competition": "VI. liga Stred - 26. kolo", "date": "2027-06-13", "start_time": "17:00:00", "end_time": "19:00:00", "teams": "Obecný športový klub Kolíňany - TJ Slovan Nitra-Chrenová", "home": "Obecný športový klub Kolíňany", "away": "TJ Slovan Nitra-Chrenová", "is_home": false}
+];
+
+        let currentFilter = 'all';
+
+        function setFilter(filter, btn) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderMatches();
+        }
+
+        function formatDate(dateStr) {
+            const d = new Date(dateStr);
+            const days = ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'];
+            const dayName = days[d.getDay()];
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const year = d.getFullYear();
+            return `${dayName}, ${day}.${month}.${year}`;
+        }
+
+        function renderMatches() {
+            const grid = document.getElementById('matchesGrid');
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+
+            const filtered = matchesData.filter(m => {
+                if (currentFilter === 'home' && !m.is_home) return false;
+                if (currentFilter === 'away' && m.is_home) return false;
+                if (currentFilter === 'cup' && !m.competition.toLowerCase().includes('cup')) return false;
+
+                if (searchVal) {
+                    const matchText = `${m.teams} ${m.competition}`.toLowerCase();
+                    if (!matchText.includes(searchVal)) return false;
+                }
+
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="empty-state">
+                    <h3>Žiadne zápasy sa nenašli</h3>
+                    <p>Skúste zmeniť kritériá vyhľadávania alebo filter.</p>
+                </div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(m => {
+                const isChrenovaHome = m.is_home;
+                const googleCalUrl = createGoogleCalLink(m);
+
+                return `
+                <div class="match-card ${isChrenovaHome ? 'is-home' : 'is-away'}">
+                    <div>
+                        <div class="match-header">
+                            <span class="match-comp">${m.competition}</span>
+                            <span class="match-badge ${isChrenovaHome ? 'badge-home' : 'badge-away'}">
+                                ${isChrenovaHome ? 'DOMA' : 'VONKU'}
+                            </span>
+                        </div>
+
+                        <div class="match-date-time">
+                            <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                            <span>${formatDate(m.date)} • ${m.start_time.substring(0,5)}</span>
+                        </div>
+
+                        <div class="match-teams">
+                            <div class="team-row ${m.home.includes('Chrenová') ? 'highlight' : ''}">
+                                <span>${m.home}</span>
+                            </div>
+                            <div class="team-vs">VS</div>
+                            <div class="team-row ${m.away.includes('Chrenová') ? 'highlight' : ''}">
+                                <span>${m.away}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="match-footer">
+                        <a href="${googleCalUrl}" target="_blank" class="btn-add-cal" title="Pridať do Google Kalendára">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/></svg>
+                            Google Cal
+                        </a>
+                        <button onclick="downloadSingleICS(${m.id})" class="btn-add-cal" title="Stiahnuť .ics pre tento zápas">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                            .ICS
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function createGoogleCalLink(m) {
+            const title = encodeURIComponent(`${m.teams} (${m.competition})`);
+            const startClean = m.date.replace(/-/g, '') + 'T' + m.start_time.replace(/:/g, '');
+            const endClean = m.date.replace(/-/g, '') + 'T' + m.end_time.replace(/:/g, '');
+            const details = encodeURIComponent(`Futbalový zápas: ${m.teams}\nSúťaž: ${m.competition}\nTJ Slovan Nitra - Chrenová`);
+            const location = encodeURIComponent(m.is_home ? "Futbalové ihrisko Chrenová, Nitra" : m.home);
+            
+            return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startClean}/${endClean}&details=${details}&location=${location}`;
+        }
+
+        function generateICSContent(matchList) {
+            let ics = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//TJ Slovan Nitra - Chrenova//Kalendar Zapasov//SK\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n";
+            
+            matchList.forEach(m => {
+                const startClean = m.date.replace(/-/g, '') + 'T' + m.start_time.replace(/:/g, '');
+                const endClean = m.date.replace(/-/g, '') + 'T' + m.end_time.replace(/:/g, '');
+                const location = m.is_home ? "Futbalové ihrisko Chrenová, Nitra" : m.home;
+
+                ics += "BEGIN:VEVENT\r\n";
+                ics += `UID:match-${m.id}-2026@slovanchrenova.sk\r\n`;
+                ics += `DTSTART:${startClean}\r\n`;
+                ics += `DTEND:${endClean}\r\n`;
+                ics += `SUMMARY:${m.teams} (${m.competition})\r\n`;
+                ics += `DESCRIPTION:Zápas ${m.competition}: ${m.teams}\r\n`;
+                ics += `LOCATION:${location}\r\n`;
+                ics += "STATUS:CONFIRMED\r\n";
+                ics += "END:VEVENT\r\n";
+            });
+
+            ics += "END:VCALENDAR";
+            return ics;
+        }
+
+        function downloadICSFile(filename, content) {
+            const blob = new Blob([content], { type: 'text/calendar;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function exportAllICS() {
+            const icsData = generateICSContent(matchesData);
+            downloadICSFile('TJ_Slovan_Nitra_Chrenova_2026_2027.ics', icsData);
+        }
+
+        function downloadSingleICS(id) {
+            const match = matchesData.find(m => m.id === id);
+            if (match) {
+                const icsData = generateICSContent([match]);
+                const filename = `zapas_${match.date}_${match.home.replace(/[^a-zA-Z0-9]/g, '_')}.ics`;
+                downloadICSFile(filename, icsData);
+            }
+        }
+
+        function openCalendarModal(type) {
+            const modal = document.getElementById('calendarModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+
+            if (type === 'google') {
+                title.innerText = 'Import do Google Kalendára';
+                body.innerHTML = `
+                    <p>Pre pridanie celého rozpisu do vášho Google Kalendára:</p>
+                    <ol>
+                        <li>Kliknite na tlačidlo nižšie a stiahnite si súbor <strong>.ICS</strong>.</li>
+                        <li>Otvorte <a href="https://calendar.google.com" target="_blank" style="color:var(--primary); font-weight:600;">Google Kalendár</a> v prehliadači.</li>
+                        <li>Vpravo hore kliknite na ozubené koliesko ⚙️ a vyberte <strong>Nastavenia</strong>.</li>
+                        <li>V ľavom menu zvoľte <strong>Importovať a exportovať</strong>.</li>
+                        <li>Nahrajte stiahnutý súbor .ICS a vyberte kalendár, do ktorého sa zápasy uložia.</li>
+                    </ol>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">Tip: V zozname zápasov môžete pridať aj jednotlivé zápasy priamo cez tlačidlo "Google Cal".</p>
+                `;
+            } else {
+                title.innerText = 'Import do Apple Kalendára / iPhone / Mac';
+                body.innerHTML = `
+                    <p>Pre pridanie rozpisu do Apple Kalendára (iPhone, iPad, Mac):</p>
+                    <ol>
+                        <li>Kliknite na tlačidlo nižšie pre stiahnutie súboru <strong>.ICS</strong>.</li>
+                        <li>Na <strong>iPhone/iPade</strong> kliknite na stiahnutý súbor a potvrďte <em>"Pridať všetko do kalendára"</em>.</li>
+                        <li>Na <strong>Macu</strong> dvakrát kliknite na súbor a zvoľte kalendár, do ktorého sa majú zápasy importovať.</li>
+                    </ol>
+                `;
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeCalendarModal() {
+            document.getElementById('calendarModal').classList.remove('active');
+        }
+
+        document.getElementById('calendarModal').addEventListener('click', function(e) {
+            if (e.target === this) closeCalendarModal();
+        });
+
+        renderMatches();
+    </script>
+</body>
+</html>
